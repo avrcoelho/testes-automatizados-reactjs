@@ -58,5 +58,5 @@ describe('TechList component', () => {
     // vrifica o valor que se tem no getItem('techs')
     expect(localStorage.getItem('techs')).toEqual('["Node.js"]');
     expect(getByTestId('tech-list')).toContainElement(getByText('Node.js'));
-  })
-})
+  });
+});
