@@ -8,6 +8,8 @@ describe('Techs reducer', () => {
   it('ADD_TECH', () => {
     const state = reducer(INITIAL_STATE, Techs.addTech('Node.js'));
 
+    console.log(state)
+
     expect(state).toStrictEqual(['Node.js']);
   })
 })
