@@ -1,8 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
-import { render } from '@testing-library/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { render, fireEvent } from '@testing-library/react';
 
 import TechListWIthRedux from '~/components/TechListWIthRedux'
+import { addTech, addTech2 } from '~/store/modules/techs/actions'
 
 jest.mock('react-redux');
 
@@ -22,4 +23,19 @@ describe('TechListWithRedux component', () => {
     expect(getByTestId('tech-list2')).toContainElement(getByText('React Native'));
     expect(getByTestId('tech-list2')).toContainElement(getByText('AdonisJS'));
   });
+
+  it('should be able to add new tech', () => {
+    const { getByTestId, getByLabelText } = render(<TechListWIthRedux />);
+
+    // moca o useDispatch
+    const dispatch = jest.fn();
+
+    useDispatch.mockReturnValue(dispatch);
+
+    fireEvent.change(getByLabelText('Tech'), { target: { value: 'Node.js' } });
+    fireEvent.submit(getByTestId('tech-form'));
+
+    // toHaveBeenCalled: espera que foi chamado
+    expect(dispatch).toHaveBeenCalledWith(addTech('Node.js'));
+  })
 });
